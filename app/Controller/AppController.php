@@ -40,7 +40,7 @@ class AppController extends Controller {
         'Auth' => array(
             'loginRedirect' => array(
                 'controller' => 'messages',
-                'action' => 'index'
+                'action' => 'home',
             ),
             'logoutRedirect' => array(
                 'controller' => 'users',
@@ -48,6 +48,7 @@ class AppController extends Controller {
             ),
             'authenticate' => array(
                 'Form' => array(
+                    'fields' => array('username' => 'email'),
                     'passwordHasher' => 'Blowfish'
                 )
             )
