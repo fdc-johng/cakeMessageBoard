@@ -18,15 +18,20 @@
 				)
 			),
 			'email' => array(
-				'rule' => array('email', true),
-				'message' => 'Please supply a valid email address.'
+				'email' => array(
+					'rule' => array('email', true),
+					'message' => 'Please supply a valid email address.'
+				),
+				'isUnique' => array(
+					'rule' => 'isUnique',
+					'message' => 'This email has already been taken'
+				)
 			),
 			'password' => array(
 				'notEmpty' => array(
 					'rule' => array('minLength', 8),
 					'message' => 'Minimum length is 8'
 				),
-				
 			),
 			'password2' => array(
 				'required' => array(
