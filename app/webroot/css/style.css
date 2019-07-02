@@ -40,13 +40,25 @@ span {
 	position: relative;
 }
 
-#login form input[type=button] {
+#login form input[type=submit] {
 	width: 112px;
 	margin-right: 8px;
+	height: 38px;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+div.submit {
+	margin: 0;
+	margin-left: -5px;
+	width: 112px;
 }
 
 #login form a {
 	width:112px;
+	position: absolute;
+	left: 128px;
+	top: 26px;
 }
 
 .btn-register {

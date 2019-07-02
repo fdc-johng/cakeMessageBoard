@@ -10,21 +10,22 @@
 <body>
 	<div id="login">
 		<h2>Login</h1>
-		<form action="login.php" method="post" accept-charset="utf-8">
-			<div class="form-group">
+		<?php echo $this->Flash->render('auth'); ?>
+		<?php echo $this->Form->create('User'); ?>
+		<div class="form-group">
 				<label for="inputEmail">Email</label>
-				<input type="email" class="form-control" name="email" value="" required>	
+				<?php echo $this->Form->input('email', array('label' => false, 'div' => false, 'type' => 'email', 'class' => 'form-control')); ?>
 			</div>
 			<div class="form-group">
 				<label for="inputPassword">Password</label>
-				<input type="password" class="form-control" name="" value="" placeholder="" required>
+				<?php echo $this->Form->input('password', array('label' => false,'div' => false, 'type' => 'password', 'class' => 'form-control')); ?>
 			</div>
 			<div class="login-group">
-				<input type="button" class="btn btn-primary" name="submit" value="Login">
+				<?php echo $this->Form->end('Login'); ?>
 				<?php echo $this->Html->link(
 				    'Register',
 				    'register',
-				    array('class' => 'btn btn-success', 'target' => '_self')
+				    array('class' => 'btn btn-primary', 'target' => '_self')
 				); ?>
 			</div>
 		</form>

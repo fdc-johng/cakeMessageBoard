@@ -4,7 +4,12 @@
 	{
 		public function index()
 		{
-
+			 if ($this->request->is('post')) {
+		        if ($this->Auth->login()) {
+		            return $this->redirect($this->Auth->redirectUrl());
+		        }
+		        $this->Flash->error(__('Invalid username or password, try again'));
+		    }
 		}
 
 		public function register()
@@ -17,12 +22,8 @@
 			}
 		}
 
-		public function beforeFilter(){
-
-		}
-
 		public function logout() {
-
+			return $this->redirect($this->Auth->logout());
 		}
 
 		public function registersuccess(){

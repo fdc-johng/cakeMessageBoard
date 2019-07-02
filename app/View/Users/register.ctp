@@ -11,7 +11,7 @@
 	<div id="login">
 		<h2>Register</h2>
 			<!-- array('oninput' => 'data[User][password2].setCustomValidity(data[User][password2].value != data[User][password].value ? "Passwords do not match." : ""))' -->
-		<?php echo $this->Form->create('User', array('oninput' => 'data[User][password2].setCustomValidity(data[User][password2].value != data[User][password].value ? "Passwords do not match." : ""))')); ?>
+		<?php echo $this->Form->create('User', array('oninput' => 'data[User][password2].setCustomValidity(data[User][password2].value != data[User][password].value ? "Passwords do not match." : "")')); ?>
 		<div class="form-group">
 			<label for="inputEmail">Name <span>*</span></label>
 			<?php echo $this->Form->input('name', array('label' => false, 'div' => false, 'type' => 'text', 'class' => 'form-control')); ?>
