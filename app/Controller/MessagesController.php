@@ -4,7 +4,7 @@
 
 		public $helpers = array('Html', 'Form');
 
-		public function index() {
+		public function home() {
 			$this->set('messages', $this->Message->find('all'));
 		}
 
