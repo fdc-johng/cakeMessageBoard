@@ -42,11 +42,13 @@
 		        
 		    }
 
-		    // If no form data, find the recipe to be edited
+		    // If no form data, find the user to be edited
 		    // and hand it to the view.
 		    $this->set('user', $this->User->findById($this->Auth->user('id')));
 
 			$this->set('profile', $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->user('id')))));
+
+			$this->set('contacts', $this->User->find('all'));
 		}
 
 		public function view($id = null) {
@@ -54,7 +56,7 @@
 				throw new NotFoundException(__('Invalid message'));
 			}
 
-			$message = $this->Message->findById($id);
+			$message = $this->Message->fndiById($id);
 
 			if(!$message) {
 				throw new NotFoundException(__('Invalid message'));

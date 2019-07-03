@@ -8,6 +8,7 @@
 	<?php echo $this->Html->css('style'); ?>
 	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -99,17 +100,20 @@
 
 	<div class="tab-pane" id="createMessage">
 		<h2>New Message</h2>
-		<form>
+		<?php echo $this->Form->create('Message'); ?>
 			<div class="form-group">
 				<label for="exampleFormControlInput1">To</label>
-				<input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Name" required="">
+				<?php echo $this->Form->input('name', array('label' => false, 'div' => false, 'type' => 'email', 'class' => 'form-control')); ?>
+				<?php echo $this->Html->scriptBlock('var jsVars = ' . json_encode($contacts['User']) . '; Console.log(jsVars)'); ?>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">Message</label>
-				<textarea class="form-control" id="exampleFormControlSelect1" required=""></textarea>
+				<?php 
+				echo $this->Form->textarea('message', array('class' => 'form-control'));
+				?>
 			</div>
 			<div class="form-group">
-				<input type="button" id="sendMessage" class="form-control btn btn-primary" name="submit" value="Send">
+				<?php echo $this->Form->end('Send'); ?>
 			</div>
 		</form>
 	</div>
