@@ -17,7 +17,7 @@
 		<div class="profile-image">
 			<div class="text-center">
 				<object data="<?php echo Router::url('/img/' . $profile['User']['id'] . '.jpg', true); ?>" width="150px" height="150px" class="img-thumbnail" id="previewImage">
-					<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
+					<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail" id="previewImage1">
 				</object>		
 			</div>
 		</div>
@@ -104,7 +104,6 @@
 			<div class="form-group">
 				<label for="exampleFormControlInput1">To</label>
 				<?php echo $this->Form->input('name', array('label' => false, 'div' => false, 'type' => 'email', 'class' => 'form-control')); ?>
-				<?php echo $this->Html->scriptBlock('var jsVars = ' . json_encode($contacts['User']) . '; Console.log(jsVars)'); ?>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">Message</label>
