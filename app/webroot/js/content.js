@@ -32,4 +32,20 @@ $(document).ready(function(){
     	$("#createMessage").hide();
     	$("#newMessage").show();
     });
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#previewImage').attr('data', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#UserImage").change(function() {
+      readURL(this);
+    });
 })
