@@ -82,10 +82,10 @@
 					</div>
 				</div>
 			</a>
-		<?php 
-			// pagination - echo "<a href='".$this->here."?n=".$next_limit."'>More</a>";
-			endforeach;
-		?>
+		<?php endforeach; ?>
+		<div style="position: fixed; bottom: 3px; left: 40%; font-size: 25px;">
+			<?php echo "<a href='".$this->here."?n=".$next_limit."' id='newMessagePage1'>More</a>"; ?>
+		</div>
 		</div>
 	</div>
 

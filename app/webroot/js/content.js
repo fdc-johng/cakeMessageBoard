@@ -26,6 +26,13 @@ $(document).ready(function(){
     	$("#newMessage").hide();
     });
 
+    $('#newMessagePage1').on('click', function(){
+        $("#newMessage").css({ 'visibility' : 'visible'});
+        $("#about").hide();
+        $("#createMessage").hide();
+        $("#newMessage").show();
+    });
+
     $('#sendMessage').on('click', function(){
     	$("#about").hide();
     	$("#createMessage").hide();
