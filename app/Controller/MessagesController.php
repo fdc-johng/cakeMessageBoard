@@ -7,6 +7,25 @@
 		var $uses = array('User', 'Message');
 
 		public function home() {
+			/************************************* PAGINATION *******************************************
+			 $limit = array_key_exists('n', $this->request->query) ? (int) $this->request->query['n'] : 10;
+
+			   // some security check you need to add
+
+			$this->paginate = array(
+			    'limit' => $limit
+			);
+			$items = $this->paginate($this->Message);
+
+			// some other code
+
+			$this->set(array(
+			    'items' => $items,
+			    'next_limit' => $limit + 10
+			));
+	
+			**/
+
 
 			$this->set('profile', $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->user('id')))));
 

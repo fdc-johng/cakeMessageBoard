@@ -10,6 +10,11 @@
 </head>
 <body>
 <div class="MessageBox">
+	<?php echo $this->Html->link(
+			'← Back to home page',
+			'home',
+			array('class' => 'btn btn-outline-success', 'target' => '_self')
+		); ?>
 
 	<?php echo $this->Form->create('Message'); ?>
 		<div class="form-group">
@@ -51,7 +56,9 @@
 				<input type="text" name="date" class="timeInfo" value="<?php echo $inbox['Message']['modified']; ?> " readonly>
 			</div>
 		</div>
-	<?php endforeach;?>
+	<?php 
+		endforeach;
+	?>
 </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
