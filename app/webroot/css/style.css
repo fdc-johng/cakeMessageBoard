@@ -212,14 +212,23 @@ textarea .profile_info {
 	width: 640px;
 }
 
-#messages {
+.messages {
 	width: 610px;
 	height: 100px;
-	margin: 10px 0px;
+	margin: 20px 0px;
+	clear: both;
+
+}
+
+.messages img{
+	border-radius: 0;
+	width: 110px;
+	height: 101px;
+	float: left;
 	clear: both;
 }
 
-#messages img{
+.messages object{
 	border-radius: 0;
 	width: 110px;
 	height: 110px;
@@ -227,7 +236,7 @@ textarea .profile_info {
 	clear: both;
 }
 
-#messages textarea{
+.messages textarea{
 	width: 500px;
 	height: 80px;
 	margin: 0px;
@@ -236,21 +245,30 @@ textarea .profile_info {
 	overflow: auto;
 }
 
-#messages input {
+.messages input {
 	width: 500px;
 	text-align: right;
 	margin: 0px;
 	display: inline-block;
 }
 
-#messages-invert {
+.messages-invert {
 	width: 610px;
 	height: 100px;
 	margin: 10px 0px;
 	clear: both;
+	margin: 20px 0;
 }
 
-#messages-invert img{
+.messages-invert img{
+	border-radius: 0;
+	width: 110px;
+	height: 101px;
+	float: right;
+	clear: both;
+}
+
+.messages-invert object{
 	border-radius: 0;
 	width: 110px;
 	height: 110px;
@@ -258,7 +276,7 @@ textarea .profile_info {
 	clear: both;
 }
 
-#messages-invert textarea{
+.messages-invert textarea{
 	width: 500px;
 	height: 80px;
 	margin: 0px;
@@ -267,7 +285,7 @@ textarea .profile_info {
 	overflow: auto;
 }
 
-#messages-invert input {
+.messages-invert input {
 	width: 500px;
 	text-align: left;
 	margin: 0px;

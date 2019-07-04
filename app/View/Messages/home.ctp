@@ -6,9 +6,7 @@
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<?php echo $this->Html->css('style'); ?>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+	<link  href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -72,30 +70,20 @@
 		<h2>Messages</h2>
 		<a href="#" id="createNewMessage" class="btn btn-outline-primary newMessageBtn">New Message</a>
 		<div class="MessageBox">
-			<div id="messages">
-				<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
-				<div class="messageInfo">
-					<textarea name="message" readonly>Sample</textarea>
-					<input type="text" name="date" class="timeInfo" value="01/07/2019 10:00 PM " readonly>
+		<?php foreach($inboxes as $inbox): ?>
+			<a href="/cakephp/messages/reply/<?php echo $inbox['Message']['from_id']?>" title="reply">
+				<div class="messages">
+					<object data="<?php echo Router::url('/img/' . $inbox['Message']['from_id'] . '.jpg', true); ?>" width="110px" height="110px" class="img-thumbnail">
+						<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
+					</object>
+					<div class="messageInfo">
+						<textarea name="message" readonly><?php echo $inbox['Message']['content']; ?></textarea>
+						<input type="text" name="date" class="timeInfo" value="<?php echo $inbox['Message']['modified']; ?> " readonly>
+					</div>
 				</div>
-			</div>
-			<div id="messages">
-				<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
-				<div class="messageInfo">
-					<textarea name="message" readonly>Sample</textarea>
-					<input type="text" name="date" class="timeInfo" value="01/07/2019 10:00 PM " readonly>
-				</div>
-			</div>
-
-			<div id="messages-invert">
-				<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
-				<div class="messageInfo">
-					<textarea name="message" readonly>Sample</textarea>
-					<input type="text" name="date" class="timeInfo" value="01/07/2019 10:00 PM "readonly>
-				</div>
-			</div>	
+			</a>
+		<?php endforeach;?>
 		</div>
-
 	</div>
 
 	<div class="tab-pane" id="createMessage">
@@ -103,18 +91,15 @@
 		<?php echo $this->Form->create('Message'); ?>
 			<div class="form-group">
 				<label for="exampleFormControlInput1">To</label>
-				<?php echo $this->Form->input('name', array('label' => false, 'div' => false, 'type' => 'email', 'class' => 'form-control')); ?>
+				<?php echo $this->Form->input('name', array('label' => false, 'div' => false, 'type' => 'text', 'class' => 'form-control', 'autoComplete' => 'on')); ?>
+				<?php echo $this->Form->input('from_id', array('label' => false, 'div' => false, 'type' => 'hidden', 'value' => $profile['User']['id'])); ?>
+				<?php echo $this->Form->input('to_id', array('label' => false, 'div' => false, 'type' => 'hidden', 'value' => '')); ?>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlSelect1">Message</label>
-				<?php 
-				echo $this->Form->textarea('message', array('class' => 'form-control'));
-				?>
+				<?php echo $this->Form->textarea('content', array('class' => 'form-control')); ?>
 			</div>
-			<div class="form-group">
-				<?php echo $this->Form->end('Send'); ?>
-			</div>
-		</form>
+		<?php echo $this->Form->end('Send'); ?>
 	</div>
 
 	<div class="wrapper">
@@ -138,9 +123,12 @@
 		</nav>
 	</div>	
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="<?php echo Router::url('/js/content.js', true); ?>" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="<?php echo Router::url('/js/content.js', true); ?>" type="text/javascript" charset="utf-8"></script>
+
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </body>
 </html>
