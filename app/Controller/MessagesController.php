@@ -65,8 +65,6 @@
 
 					$this->request->data['Message']['to_id'] = $contacts['User']['id'];
 
-					CakeLog::write('debug', 'Got here');
-
 			        if(!empty($this->request->data)){
 
 						$this->Message->create();
