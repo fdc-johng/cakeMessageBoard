@@ -72,6 +72,17 @@
 			    'limit' => $limit
 			);
 
+			/**
+
+				SELECT * FROM(
+					 	SELECT to_id, from_id, content, modified, ROW_NUMBER() OVER (
+					 	partition BY to_id, from_id ORDER BY modified DESC) AS rn 
+					 	FROM messages
+					) AS dt
+				WHERE rn = 1 ORDER BY modified DESC
+	
+			**/
+
 			$items = $this->paginate($this->Message);
 
 			// some other code
@@ -86,20 +97,9 @@
 
 		public function contact(){
 
-			// $contacts = $this->User->query("SELECT id, name FROM users");
-
 			$contacts = $this->User->find('list', array(
 				'fields' => array('User.name')
 			));
-
-			// $resultArr = array();
-
-			// foreach($contacts as $result) {
-			//     $resultArr[] = array('id' =>$result['users']['id'] , 'value' => $result['users']['name'] );
-			// }
-
-			// echo '{id: "1", "name": "Sample Test"},{id: "2", "name": "Test 1"},{id: "3", "name": "Orange 2"},{id: "4", "name": "Green 3"}'
-
 
 			echo json_encode($contacts);
 			exit();
