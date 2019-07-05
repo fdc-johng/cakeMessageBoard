@@ -70,9 +70,26 @@
 		<h2>Messages</h2>
 		<a href="#" id="createNewMessage" class="btn btn-outline-primary newMessageBtn">New Message</a>
 		<div class="MessageBox">
-		<?php foreach($inboxes as $inbox): ?>
-			<a href="/cakephp/messages/reply/<?php echo $inbox['Message']['from_id']?>" title="reply">
-				<div class="messages">
+		<?php 
+			$r = 0;
+
+			foreach($inboxes as $inbox): 
+
+			if($r % 2 != 0 && $r != 0):
+				$r++;
+				continue;
+			endif;
+
+			$r++;
+
+		?>
+			<?php if($inbox['Message']['to_id'] == $profile['User']['id']): ?>
+				<a href="/cakephp/messages/reply/<?php echo $inbox['Message']['from_id']?>" title="reply">
+					<div class="messages">
+			<?php else: ?>
+				<a href="/cakephp/messages/reply/<?php echo $inbox['Message']['to_id']?>" title="reply">
+					<div class="messages-invert">
+			<?php endif; ?>
 					<object data="<?php echo Router::url('/img/' . $inbox['Message']['from_id'] . '.jpg', true); ?>" width="110px" height="110px" class="img-thumbnail">
 						<img src="<?php echo Router::url('/img/prof_default.png', true); ?>" alt="Profile Picture" class="img-thumbnail">
 					</object>
@@ -83,7 +100,7 @@
 				</div>
 			</a>
 		<?php endforeach; ?>
-		<div style="position: fixed; bottom: 3px; left: 40%; font-size: 25px;">
+		<div class="next_limit_btn" style="position: fixed; bottom: 3px; left: 40%; font-size: 25px;">
 			<?php echo "<a href='".$this->here."?n=".$next_limit."' id='newMessagePage1'>More</a>"; ?>
 		</div>
 		</div>

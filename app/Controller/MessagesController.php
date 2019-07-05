@@ -7,23 +7,6 @@
 		var $uses = array('User', 'Message');
 
 		public function home() {
-			//************************************ PAGINATION *******************************************
-			 $limit = array_key_exists('n', $this->request->query) ? (int) $this->request->query['n'] : 10;
-
-			   // some security check you need to add
-
-			$this->paginate = array(
-			    'limit' => $limit
-			);
-			$items = $this->paginate($this->Message);
-
-			// some other code
-
-			$this->set(array(
-			    'items' => $items,
-			    'next_limit' => $limit + 10
-			));
-	        //******************************************************************************************
 
 			$this->set('profile', $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->user('id')))));
 
@@ -52,6 +35,7 @@
 			        $this->User->id = $this->Auth->user('id');
 
 			        $this->request->data['User']['image'] = $imageName;
+			        $this->request->data['User']['modified_ip'] = $this->request->clientIp();
 
 			        if ($this->User->save($this->request->data)) {
 			            return $this->redirect('/messages/home');
@@ -76,12 +60,27 @@
 		        }
 		    }
 
-   			$this->set('inboxes', $this->Message->find('all', array(
-   				'conditions' => array('to_id' => $this->Auth->user('id')),
+
+		    //************************************ PAGINATION *******************************************
+			$limit = array_key_exists('n', $this->request->query) ? (int) $this->request->query['n'] : 10;
+
+			$this->paginate = array(
+				'conditions' => array( 'OR' => array( 'OR' => array('to_id' => $this->Auth->user('id')), array('from_id' => $this->Auth->user('id')))),
    				'fields' => array('DISTINCT from_id', 'to_id', 'content', 'modified'),
-   				'order' => 'from_id DESC',
-   				'group' => 'from_id'
-   			)));
+   				'order' => 'modified DESC',
+   				'group' => array('from_id', 'to_id'),
+			    'limit' => $limit
+			);
+
+			$items = $this->paginate($this->Message);
+
+			// some other code
+
+			$this->set(array(
+			    'inboxes' => $items,
+			    'next_limit' => $limit + 10
+			));
+	        //******************************************************************************************   			
 	
 		}
 
@@ -131,14 +130,19 @@
 		public function reply($id){
 
 			if($this->request->is('post')){
+
 				$this->Message->create();
 				$this->Message->save($this->request->data);
 			}
 
+
+
 			$this->set('profile', $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->user('id')))));
 
-			$this->set('inboxes', $this->Message->find('all', array(
-   				'conditions' => array(
+			$limit = array_key_exists('n', $this->request->query) ? (int) $this->request->query['n'] : 10;
+
+			$this->paginate = array(
+				'conditions' => array(
 				    'OR' => array(
 				    	'AND' => array(
 					        array('to_id' => $this->Auth->user('id')),
@@ -152,8 +156,19 @@
 				    )
 				),
    				'fields' => array('from_id', 'to_id', 'content', 'modified'),
-   				'order' => 'modified DESC'
-   			)));
+   				'order' => 'modified DESC',
+			    'limit' => $limit
+			);
+
+			$items = $this->paginate($this->Message);
+
+			// some other code
+
+			$this->set(array(
+			    'inboxes' => $items,
+			    'next_limit' => $limit + 10
+			));
+
 		}
 
 	}

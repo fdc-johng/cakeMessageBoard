@@ -59,6 +59,9 @@
 	<?php 
 		endforeach;
 	?>
+	<div class="next_limit_btn text-center" style="position: relative; top: 20px; font-size: 25px; border: 1px solid red; width: 610px;">
+	<?php echo "<a href='".$this->here."?n=".$next_limit."' id='show_more'>More</a>"; ?>
+	</div>
 </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

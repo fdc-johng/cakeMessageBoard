@@ -37,6 +37,8 @@ class AppController extends Controller {
 	public $components = array(
 		'DebugKit.Toolbar',
         'Flash',
+        'Paginator',
+        'RequestHandler',
         'Auth' => array(
             'loginRedirect' => array(
                 'controller' => 'messages',
@@ -54,6 +56,10 @@ class AppController extends Controller {
             )
         )
     );
+
+    public function beforeRender() {
+        $this->layout = ($this->request->is("ajax")) ? "ajax" : "default";
+    }
 
     public function beforeFilter() {
         $this->Auth->allow('index', 'login', 'register', 'registersuccess');

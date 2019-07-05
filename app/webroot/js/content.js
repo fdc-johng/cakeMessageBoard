@@ -64,13 +64,26 @@ $(document).ready(function(){
                 type: "post",
                 data: {key: name},
                 success: function (data){
-                    response(data);
+                    if(response(data) == $('#MessageName').val()){
+                        response(data);
+                    }
                 }
             });
         },
         minLength: 2
-    }).focus(function () {
-        $(this).autocomplete("search", $(this).val());
-    });
+    })
 
+    $('.next_limit_btn input[type="submit"]').on('click', function(){
+        var data = $('MessageReplyForm').serialize();
+        $.ajax({
+            dataType: "html",
+            type: "AJAX",
+            evalScripts: true,
+            url: $('MessageReplyForm').attr('action'),
+            data: data,
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    })
 });
